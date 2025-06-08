@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { provideAnimations } from '@angular/platform-browser/animations'; 
 import { 
   trigger, 
   state, 
@@ -15,7 +14,6 @@ import { CommonModule, NgStyle } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, NgStyle, ReactiveFormsModule],
-  providers: [provideAnimations()],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   animations: [
