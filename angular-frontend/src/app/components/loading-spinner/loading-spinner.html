@@ -1,0 +1,27 @@
+<div class="chess-spinner" [class]="'size-' + size + ' color-' + color">
+  <div class="chessboard">
+    <!-- Animated chess board squares -->
+    <div class="square light" style="--delay: 0s"></div>
+    <div class="square dark" style="--delay: 0.1s"></div>
+    <div class="square light" style="--delay: 0.2s"></div>
+    <div class="square dark" style="--delay: 0.3s"></div>
+    
+    <!-- Chess pieces with different fun animations -->
+    <div class="chess-piece pawn" [innerHTML]="getPieceSvg('pawn')"></div>
+    <div class="chess-piece knight" [innerHTML]="getPieceSvg('knight')"></div>
+    <div class="chess-piece bishop" [innerHTML]="getPieceSvg('bishop')"></div>
+    <div class="chess-piece rook" [innerHTML]="getPieceSvg('rook')"></div>
+    <div class="chess-piece queen" [innerHTML]="getPieceSvg('queen')"></div>
+    <div class="chess-piece king" [innerHTML]="getPieceSvg('king')"></div>
+  </div>
+  
+  <!-- Fun message with changing text -->
+  <div class="message">
+    <span class="message-text">{{ message }}</span>
+    <span class="message-dots">
+      <span class="dot" style="--delay: 0s">.</span>
+      <span class="dot" style="--delay: 0.3s">.</span>
+      <span class="dot" style="--delay: 0.6s">.</span>
+    </span>
+  </div>
+</div>

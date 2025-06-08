@@ -1,0 +1,361 @@
+/* Fonts - Add this to your global styles.scss */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap'); */
+
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  font-family: 'Montserrat', sans-serif;
+  color: #f8f8f8;
+}
+
+.chess-board-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.chess-square {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
+  transition: all 0.5s ease;
+}
+
+.login-card {
+  position: relative;
+  width: 400px;
+  padding: 40px;
+  background: rgba(26, 26, 46, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(181, 136, 99, 0.1) 0%, transparent 70%);
+    animation: rotate 60s linear infinite;
+    z-index: -1;
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin-top: 15px;
+    color: #f0d9b5;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.queen-piece {
+  width: 60px;
+  height: 80px;
+  background: #f0d9b5;
+  border-radius: 50% 50% 0 0;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    background: #f0d9b5;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px #b58863;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    width: 40px;
+    height: 10px;
+    background: #b58863;
+    border-radius: 4px;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  position: relative;
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #f0d9b5;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(240, 217, 181, 0.5);
+    color: #f8f8f8;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-bottom-color: transparent;
+    }
+    
+    &::placeholder {
+      color: rgba(240, 217, 181, 0.5);
+    }
+  }
+  
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #f0d9b5;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+}
+
+.login-btn {
+  position: relative;
+  padding: 14px;
+  background: linear-gradient(135deg, #b58863 0%, #8b5a2b 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(181, 136, 99, 0.3);
+    
+    .chess-pieces {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  &:disabled {
+    background: #555;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  span {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.chess-pieces {
+  display: flex;
+  gap: 5px;
+  transform: translateX(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.pawn, .knight, .bishop {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f0d9b5;
+  position: relative;
+}
+
+.pawn {
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 3px;
+    width: 10px;
+    height: 4px;
+    background: #b58863;
+    border-radius: 2px;
+  }
+}
+
+.knight {
+  transform: rotate(45deg);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background: #f0d9b5;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+}
+
+.bishop {
+  &::before {
+    content: '+';
+    position: absolute;
+    top: -8px;
+    left: 3px;
+    font-size: 12px;
+    color: #b58863;
+  }
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  
+  a {
+    color: rgba(240, 217, 181, 0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #f0d9b5;
+    }
+  }
+}
+
+.floating-piece {
+  position: absolute;
+  opacity: 0.1;
+  z-index: 0;
+  
+  &.rook {
+    width: 40px;
+    height: 40px;
+    background: #f0d9b5;
+    border-radius: 8px;
+    top: 20%;
+    left: 15%;
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #b58863;
+    }
+    
+    &::before {
+      top: -5px;
+      left: -5px;
+    }
+    
+    &::after {
+      bottom: -5px;
+      right: -5px;
+    }
+  }
+  
+  &.king {
+    width: 30px;
+    height: 50px;
+    background: #f0d9b5;
+    border-radius: 50% 50% 0 0;
+    top: 60%;
+    left: 80%;
+    
+    &::before {
+      content: '+';
+      position: absolute;
+      top: -15px;
+      left: 8px;
+      font-size: 20px;
+      color: #b58863;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 5px;
+      width: 20px;
+      height: 8px;
+      background: #b58863;
+      border-radius: 4px;
+    }
+  }
+  
+  &.queen {
+    width: 30px;
+    height: 50px;
+    background: #f0d9b5;
+    border-radius: 50% 50% 0 0;
+    top: 30%;
+    left: 70%;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 10px;
+      width: 10px;
+      height: 10px;
+      background: #f0d9b5;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px #b58863;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 5px;
+      width: 20px;
+      height: 8px;
+      background: #b58863;
+      border-radius: 4px;
+    }
+  }
+}

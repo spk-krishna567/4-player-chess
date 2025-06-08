@@ -1,0 +1,66 @@
+<div class="login-container" [@pageTransition]>
+  <div class="chess-board-background">
+    @for (square of chessSquares; track square) {
+      <div class="chess-square" [ngStyle]="square"></div>
+    }
+  </div>
+  
+  <div class="login-card" [@cardAnimation]>
+    <div class="logo">
+      <div class="queen-piece"></div>
+      <h1>Quad Chess</h1>
+    </div>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group" [@inputAnimation]>
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          formControlName="username" 
+          placeholder="Enter your username"
+          (focus)="animateInput($event)"
+          (blur)="resetInput($event)">
+        <div class="underline"></div>
+      </div>
+      
+      <div class="form-group" [@inputAnimation]>
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password" 
+          placeholder="Enter your password"
+          (focus)="animateInput($event)"
+          (blur)="resetInput($event)">
+        <div class="underline"></div>
+      </div>
+      
+      <button type="submit" class="login-btn" [disabled]="!loginForm.valid">
+        <span>Play Chess</span>
+        <div class="chess-pieces">
+          <div class="pawn"></div>
+          <div class="knight"></div>
+          <div class="bishop"></div>
+        </div>
+      </button>
+    </form>
+    
+    <div class="footer-links">
+      <a href="#" 
+         (mouseenter)="onLinkHover('hovered')" 
+         (mouseleave)="onLinkHover('normal')" 
+         [@linkHover]="linkHoverState()">Forgot Password?</a>
+      <a href="#" 
+         (mouseenter)="onLinkHover('hovered')" 
+         (mouseleave)="onLinkHover('normal')" 
+         [@linkHover]="linkHoverState()">Create Account</a>
+    </div>
+  </div>
+  
+  <div class="chess-pieces-animation">
+    <div class="floating-piece rook" [@floatAnimation]></div>
+    <div class="floating-piece king" [@floatAnimation]></div>
+    <div class="floating-piece queen" [@floatAnimation]></div>
+  </div>
+</div>

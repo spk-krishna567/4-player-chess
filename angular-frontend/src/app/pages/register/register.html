@@ -1,0 +1,124 @@
+<div class="register-container" [@pageTransition]>
+    <div class="chess-board-background">
+      @for (square of chessSquares; track square) {
+        <div class="chess-square" [ngStyle]="square"></div>
+      }
+    </div>
+    
+    <div class="register-card" [@cardAnimation]>
+      <div class="logo">
+        <div class="queen-piece"></div>
+        <h1>Quad Chess</h1>
+        <h2>Create Account</h2>
+      </div>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+        <div class="form-group" [@inputAnimation]>
+          <label for="username">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            formControlName="username" 
+            placeholder="Choose a username"
+            (focus)="animateInput($event)"
+            (blur)="resetInput($event)">
+          <div class="underline"></div>
+          @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+            <div class="error-message">
+              Username must be at least 3 characters
+            </div>
+          }
+        </div>
+        
+        <div class="form-group" [@inputAnimation]>
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Enter your email"
+            (focus)="animateInput($event)"
+            (blur)="resetInput($event)">
+          <div class="underline"></div>
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <div class="error-message">
+              Please enter a valid email
+            </div>
+          }
+        </div>
+        
+        <div class="form-group" [@inputAnimation]>
+          <label for="password">Password</label>
+          <div class="password-input">
+            <input 
+              [type]="showPassword() ? 'text' : 'password'" 
+              id="password" 
+              formControlName="password" 
+              placeholder="Create a password"
+              (focus)="animateInput($event)"
+              (blur)="resetInput($event)">
+            <button 
+              type="button" 
+              class="toggle-password" 
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+              @if (showPassword()) {
+                <i class="eye-icon">👁️</i>
+              } @else {
+                <i class="eye-icon">🔒</i>
+              }
+            </button>
+          </div>
+          <div class="underline"></div>
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <div class="error-message">
+              Password must be at least 6 characters
+            </div>
+          }
+        </div>
+        
+        <div class="form-group" [@inputAnimation]>
+          <label for="confirmPassword">Confirm Password</label>
+          <input 
+            [type]="showPassword() ? 'text' : 'password'" 
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            placeholder="Confirm your password"
+            (focus)="animateInput($event)"
+            (blur)="resetInput($event)">
+          <div class="underline"></div>
+          @if (registerForm.hasError('mismatch')) {
+            <div class="error-message">
+              Passwords do not match
+            </div>
+          }
+        </div>
+        
+        <button type="submit" class="register-btn" [disabled]="!registerForm.valid">
+          <span>Create Account</span>
+          <div class="chess-pieces">
+            <div class="pawn"></div>
+            <div class="rook"></div>
+            <div class="king"></div>
+          </div>
+        </button>
+      </form>
+      
+      <div class="footer-links">
+        <span>Already have an account?</span>
+        <a 
+          routerLink="/login" 
+          (mouseenter)="onLinkHover('hovered')" 
+          (mouseleave)="onLinkHover('normal')" 
+          [@linkHover]="linkHoverState()">
+          Sign In
+        </a>
+      </div>
+    </div>
+    
+    <div class="chess-pieces-animation">
+      <div class="floating-piece rook" [@floatAnimation]></div>
+      <div class="floating-piece bishop" [@floatAnimation]></div>
+      <div class="floating-piece queen" [@floatAnimation]></div>
+    </div>
+  </div>

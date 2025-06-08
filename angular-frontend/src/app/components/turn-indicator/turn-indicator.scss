@@ -1,0 +1,124 @@
+@use 'sass:color';
+
+.turn-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  margin: 1rem auto;
+  max-width: 300px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  .chess-icon {
+    font-size: 1.8rem;
+    animation: bounce 1s infinite alternate;
+  }
+
+  .turn-text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .player {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+  }
+
+  .pulse-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: -1;
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+  }
+
+  &.critical {
+    animation: shake 0.5s infinite;
+    
+    .player {
+      animation: blink 1s infinite;
+    }
+  }
+
+  // Color variants
+  &.indicator-red {
+    background: color.adjust(#ffebee, $lightness: -5%);
+    border: 2px solid #f44336;
+    color: #d32f2f;
+
+    .pulse-animation {
+      background: #f44336;
+    }
+  }
+
+  &.indicator-blue {
+    background: color.adjust(#e3f2fd, $lightness: -5%);
+    border: 2px solid #2196f3;
+    color: #1565c0;
+
+    .pulse-animation {
+      background: #2196f3;
+    }
+  }
+
+  &.indicator-green {
+    background: color.adjust(#e8f5e9, $lightness: -5%);
+    border: 2px solid #4caf50;
+    color: #2e7d32;
+
+    .pulse-animation {
+      background: #4caf50;
+    }
+  }
+
+  &.indicator-yellow {
+    background: color.adjust(#fffde7, $lightness: -5%);
+    border: 2px solid #ffeb3b;
+    color: #f9a825;
+
+    .pulse-animation {
+      background: #ffeb3b;
+    }
+  }
+}
+
+// Animations
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.1; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

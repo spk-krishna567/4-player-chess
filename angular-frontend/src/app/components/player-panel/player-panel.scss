@@ -1,0 +1,144 @@
+@use 'sass:color';
+
+.player-panel {
+  border: 3px solid;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+  &.current-player {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8),
+                0 0 15px 5px rgba(255, 215, 0, 0.5);
+  }
+
+  .player-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .player-info {
+      flex-grow: 1;
+
+      .player-name {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .player-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+
+        .rating {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .player-timer {
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 0.3rem 0.6rem;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+    }
+  }
+
+  .player-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      &.challenge-btn {
+        background: #4CAF50;
+        color: white;
+      }
+
+      &.rematch-btn {
+        background: #2196F3;
+        color: white;
+      }
+    }
+
+    .quick-messages {
+      display: flex;
+      gap: 0.3rem;
+
+      .msg-btn {
+        background: rgba(0, 0, 0, 0.1);
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.2);
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+}
+
+/* Color variants */
+@each $color in (red, blue, green, yellow) {
+  .bg-#{$color}-100 {
+    background-color: color.adjust(
+      map-get((red: #ffebee, blue: #e3f2fd, green: #e8f5e9, yellow: #fffde7), 
+      $color
+    ), $lightness: 10%);
+  }
+
+  .bg-#{$color}-300 {
+    background-color: map-get((
+      red: #e57373, 
+      blue: #64b5f6, 
+      green: #81c784, 
+      yellow: #fff176
+    ), $color);
+  }
+
+  .border-#{$color}-500 {
+    border-color: map-get((
+      red: #f44336, 
+      blue: #2196f3, 
+      green: #4caf50, 
+      yellow: #ffeb3b
+    ), $color);
+  }
+}

@@ -1,0 +1,64 @@
+<div class="lobby-container">
+    <div class="lobby-header">
+      <h1>4-Player Chess Lobby</h1>
+      <div class="game-settings">
+        @for (setting of gameSettings; track trackBySettingLabel($index, setting)) {
+          <div class="setting-item">
+            <span class="setting-label">{{setting.label}}:</span>
+            <span class="setting-value">{{setting.value}}</span>
+          </div>
+        }
+      </div>
+    </div>
+  
+    <div class="lobby-content">
+      <div class="players-container">
+        <div class="chess-board-preview">
+          <div class="board-center"></div>
+          @for (player of players; track trackByPlayerId($index, player); let i = $index) {
+            <div class="player-seat" 
+                 [class]="'position-' + playerPositions[i]"
+                 [style.border-color]="player.color">
+              <div class="player-info" (click)="toggleReady(player)">
+                <div class="player-avatar">{{player.avatar}}</div>
+                <div class="player-name">{{player.name}}</div>
+                <div class="player-status" [class.ready]="player.ready">
+                  {{player.ready ? 'READY' : 'WAITING'}}
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+  
+      <div class="chat-container">
+        <div class="chat-header">
+          <h3>Lobby Chat</h3>
+        </div>
+        <div class="chat-messages">
+          @for (message of chatMessages; track trackByChatIndex($index)) {
+            <div class="message" [class.own-message]="message.user === 'You'">
+              <div class="message-header">
+                <span class="message-user">{{message.user}}</span>
+                <span class="message-time">{{message.time}}</span>
+              </div>
+              <div class="message-text">{{message.text}}</div>
+            </div>
+          }
+        </div>
+        <div class="chat-input">
+          <input type="text" [(ngModel)]="newMessage" placeholder="Type your message..." (keyup.enter)="sendMessage()">
+          <button (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="lobby-footer">
+      <button class="start-button" 
+              [disabled]="!canStartGame" 
+              (click)="startGame()"
+              [class.disabled]="!canStartGame">
+        {{canStartGame ? 'START GAME' : 'WAITING FOR PLAYERS (' + readyCount + '/4)'}}
+      </button>
+    </div>
+  </div>

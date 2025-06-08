@@ -1,0 +1,97 @@
+/* disconnection-banner.component.scss */
+
+:host {
+    display: block; // Ensures the component takes up space
+    position: fixed; // Fixed position to stay at the top
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; // High z-index to appear above other content
+    overflow: hidden; // Important for the slide animation
+  }
+  
+  .disconnection-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--disconnection-banner-text-color, #ffffff); // Default white text
+    background: var(--disconnection-banner-background, rgba(220, 38, 38, 0.9)); // Default red with transparency
+    backdrop-filter: blur(8px); // Glassmorphism effect
+    -webkit-backdrop-filter: blur(8px); // Safari support
+    border-bottom: 1px solid var(--disconnection-banner-border-color, rgba(255, 255, 255, 0.2));
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transform: translateY(-100%); // Start hidden (initial state for animation)
+    opacity: 0; // Start invisible (initial state for animation)
+    will-change: transform, opacity, height, padding; // Optimize for animations
+  
+    // These classes are mostly for initial visual state or if animations are disabled
+    &.online {
+      transform: translateY(-100%);
+      opacity: 0;
+      height: 0px;
+      padding: 0px;
+    }
+  
+    &.offline {
+      transform: translateY(0);
+      opacity: 1;
+      height: auto; // Will be animated from 0 to its natural height
+      padding: 0.8rem 1.5rem; // Will be animated from 0 to this value
+    }
+  }
+  
+  .banner-icon {
+    margin-right: 0.75rem;
+    font-size: 1.2rem; // Adjust icon size
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .banner-message {
+    vertical-align: middle;
+  }
+  
+  /* Optional: Add a subtle pulse animation to the icon when offline */
+  @keyframes pulse-offline {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .disconnection-banner.offline .banner-icon {
+    animation: pulse-offline 1.5s infinite ease-in-out;
+  }
+  
+  /* Responsive adjustments if needed */
+  @media (max-width: 768px) {
+    .disconnection-banner {
+      font-size: 0.9rem;
+      padding: 0.6rem 1rem;
+    }
+    .banner-icon {
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+  
+  /* Example of how to override variables in your global styles.scss or a parent component */
+  /*
+  :root {
+    --disconnection-banner-text-color: #f0f0f0;
+    --disconnection-banner-background: rgba(0, 0, 0, 0.85);
+    --disconnection-banner-border-color: rgba(255, 255, 255, 0.1);
+  }
+  */

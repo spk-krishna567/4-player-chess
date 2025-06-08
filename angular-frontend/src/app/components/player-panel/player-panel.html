@@ -1,0 +1,40 @@
+<div class="player-panel" 
+     [class]="playerBg + ' ' + playerBorder"
+     [class.current-player]="isCurrentPlayer">
+  
+  <div class="player-header">
+    <div class="avatar" [class]="'bg-' + playerColor + '-300'">
+      {{ avatar }}
+    </div>
+    
+    <div class="player-info">
+      <h3 class="player-name">{{ playerName }}</h3>
+      <div class="player-meta">
+        <span class="rating">♟️ {{ rating }}</span>
+        <span class="status">
+          {{ statusIcon }} {{ status | titlecase }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="player-timer">
+      ⏱️ {{ formattedTime }}
+    </div>
+  </div>
+  
+  <div class="player-controls">
+    <button class="btn challenge-btn" (click)="sendChallenge()">
+      Challenge
+    </button>
+    
+    <div class="quick-messages">
+      <button class="msg-btn" (click)="sendQuickMessage('Good move!')">👍</button>
+      <button class="msg-btn" (click)="sendQuickMessage('Well played!')">👏</button>
+      <button class="msg-btn" (click)="sendQuickMessage('Rematch?')">♟️</button>
+    </div>
+    
+    <button class="btn rematch-btn" (click)="sendRematch()">
+      Offer Rematch
+    </button>
+  </div>
+</div>

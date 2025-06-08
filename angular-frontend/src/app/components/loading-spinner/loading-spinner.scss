@@ -1,0 +1,229 @@
+@use 'sass:color';
+
+.chess-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  perspective: 1000px;
+
+  .chessboard {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    aspect-ratio: 1/1;
+    transform-style: preserve-3d;
+    animation: dance 2s ease-in-out infinite;
+
+    .square {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      animation: pop-in 0.5s ease-out forwards;
+      animation-delay: var(--delay);
+
+      &.light {
+        background-color: #f0d9b5;
+        box-shadow: inset 0 0 10px rgba(210, 180, 140, 0.8);
+      }
+
+      &.dark {
+        background-color: #b58863;
+        box-shadow: inset 0 0 10px rgba(90, 60, 30, 0.8);
+      }
+    }
+
+    .chess-piece {
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.4));
+      
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      &.pawn {
+        top: 5%;
+        left: 5%;
+        animation: bounce 1.5s ease-in-out infinite, 
+                   glow 2s ease-in-out infinite alternate;
+      }
+
+      &.knight {
+        top: 5%;
+        right: 5%;
+        animation: bounce 1.7s ease-in-out infinite 0.2s,
+                   spin 3s linear infinite;
+      }
+
+      &.bishop {
+        bottom: 5%;
+        left: 5%;
+        animation: bounce 1.6s ease-in-out infinite 0.4s,
+                   slide 4s linear infinite;
+      }
+
+      &.rook {
+        bottom: 5%;
+        right: 5%;
+        animation: shake 0.8s ease-in-out infinite,
+                   pulse 2s ease infinite;
+      }
+
+      &.queen {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: float 3s ease-in-out infinite,
+                   rainbow 4s linear infinite;
+        z-index: 10;
+      }
+
+      &.king {
+        top: 30%;
+        left: 30%;
+        animation: wobble 1s ease-in-out infinite alternate,
+                   jiggle 0.5s ease-in-out infinite;
+      }
+    }
+  }
+
+  .message {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    color: inherit;
+    font-size: 1.2em;
+    display: flex;
+    align-items: flex-end;
+
+    &-text {
+      animation: color-change 5s linear infinite;
+    }
+
+    .dot {
+      opacity: 0;
+      animation: dot-bounce 1.5s infinite;
+      animation-delay: var(--delay);
+    }
+  }
+
+  // Size variations
+  &.size-small {
+    .chessboard { width: 60px; }
+    .message { font-size: 0.9rem; }
+  }
+
+  &.size-medium {
+    .chessboard { width: 100px; }
+    .message { font-size: 1.1rem; }
+  }
+
+  &.size-large {
+    .chessboard { width: 150px; }
+    .message { font-size: 1.5rem; }
+  }
+
+  // Color variations
+  &.color-white {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    .chess-piece svg {
+      fill: white;
+    }
+  }
+
+  &.color-black {
+    color: #222;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+
+    .chess-piece svg {
+      fill: #222;
+    }
+  }
+}
+
+/* CRAZY ANIMATIONS */
+@keyframes dance {
+  0%, 100% { transform: rotateY(0deg) scale(1); }
+  25% { transform: rotateY(90deg) scale(1.05); }
+  50% { transform: rotateY(180deg) scale(1); }
+  75% { transform: rotateY(270deg) scale(1.05); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  80% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0% { filter: drop-shadow(0 0 5px gold); }
+  100% { filter: drop-shadow(0 0 15px gold); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes slide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(15px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-20px); }
+}
+
+@keyframes rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes wobble {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+@keyframes jiggle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes color-change {
+  0% { color: #ff5252; }
+  20% { color: #ffd740; }
+  40% { color: #69f0ae; }
+  60% { color: #40c4ff; }
+  80% { color: #e040fb; }
+  100% { color: #ff5252; }
+}
+
+@keyframes dot-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0; }
+  50% { transform: translateY(-10px); opacity: 1; }
+}

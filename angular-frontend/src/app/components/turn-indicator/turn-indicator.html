@@ -1,0 +1,10 @@
+<div class="turn-indicator" 
+     [class]="'indicator-' + playerColor"
+     [class.critical]="isCritical">
+  <div class="chess-icon">♜</div>
+  <div class="turn-text">
+    <span class="label">Current Turn:</span>
+    <span class="player">{{ currentPlayer || 'Waiting...' }}</span>
+  </div>
+  <div class="pulse-animation"></div>
+</div>

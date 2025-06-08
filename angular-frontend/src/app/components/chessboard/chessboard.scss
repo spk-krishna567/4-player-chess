@@ -1,0 +1,58 @@
+@use 'sass:color';
+
+.board-container {
+  position: relative;
+  width: fit-content;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #736f6b;
+
+  canvas {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+  }
+
+  .chess-piece {
+    position: absolute;
+    pointer-events: none; // Disable mouse events since we're using canvas
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    user-select: none;
+    z-index: 10;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+
+    &.dragging {
+      z-index: 20;
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.4));
+      cursor: grabbing;
+    }
+  }
+}
+
+// Player orientation indicators
+.board-container::after {
+  content: 'RED (YOU)';
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #d32f2f;
+  text-shadow: 0 1px 2px white;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .board-container {
+    margin: 1rem auto;
+    transform: scale(0.9);
+  }
+}

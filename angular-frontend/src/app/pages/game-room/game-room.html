@@ -1,0 +1,27 @@
+<div class="game-room-container">
+  <!-- Top Player -->
+  <app-player-panel [position]="'top'"></app-player-panel>
+
+  <div class="middle-section">
+    <!-- Left Player -->
+    <app-player-panel [position]="'left'"></app-player-panel>
+
+    <!-- Chessboard -->
+    <div class="chessboard-wrapper">
+      <app-chessboard></app-chessboard>
+      <app-turn-indicator></app-turn-indicator>
+    </div>
+
+    <!-- Right Player -->
+    <app-player-panel [position]="'right'"></app-player-panel>
+  </div>
+
+  <!-- Bottom Player + Controls -->
+  <div class="bottom-section">
+    <app-player-panel [position]="'bottom'"></app-player-panel>
+    <app-move-controls></app-move-controls>
+  </div>
+
+  <!-- Global Loading/Disconnect -->
+  <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+</div>
