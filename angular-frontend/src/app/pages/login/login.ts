@@ -1,6 +1,5 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { provideAnimations } from '@angular/platform-browser/animations'; 
 import { 
   trigger, 
   state, 
@@ -15,7 +14,6 @@ import { CommonModule, NgStyle } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, NgStyle, ReactiveFormsModule],
-  providers: [provideAnimations()],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   animations: [
@@ -46,7 +44,7 @@ import { CommonModule, NgStyle } from '@angular/common';
     ]),
     trigger('floatAnimation', [
       transition(':enter', [
-        animate('15000ms linear infinite', 
+        animate('15000ms linear',
           keyframes([
             style({ transform: 'translateY(0) rotate(0deg)', offset: 0 }),
             style({ transform: 'translateY(-100px) rotate(90deg)', offset: 0.25 }),
