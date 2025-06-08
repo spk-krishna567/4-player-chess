@@ -44,7 +44,7 @@ import { CommonModule, NgStyle } from '@angular/common';
     ]),
     trigger('floatAnimation', [
       transition(':enter', [
-        animate('15000ms linear infinite', 
+        animate('15000ms linear',
           keyframes([
             style({ transform: 'translateY(0) rotate(0deg)', offset: 0 }),
             style({ transform: 'translateY(-100px) rotate(90deg)', offset: 0.25 }),
